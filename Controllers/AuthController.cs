@@ -30,4 +30,16 @@ public class AuthController : ControllerBase
       }
     });
   }
+
+  [HttpPost("login")]
+  public async Task<IActionResult> Login(UserLoginDto dto)
+  {
+    var result = await _authService.Login(dto);
+
+    return Ok(new
+    {
+      message = "Logged in!",
+      data = result.Data,
+    });
+  }
 }

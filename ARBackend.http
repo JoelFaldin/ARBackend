@@ -9,6 +9,16 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "jowel",
+  "username": "test_user",
+  "password": "9090pass"
+}
+
+###
+POST {{ARBackend_HostAddress}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "test_user",
   "password": "9090pass"
 }
