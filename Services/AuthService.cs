@@ -11,7 +11,7 @@ public class AuthService
   {
     if (_context.Users.Any(u => u.Username == dto.Username))
     {
-      return Result<User>.Fail("El usuario ya existe!");
+      throw new AppException("El usuario ya existe en la base de datos!", 400);
     }
 
     var hashed = BCrypt.Net.BCrypt.HashPassword(dto.Password);
