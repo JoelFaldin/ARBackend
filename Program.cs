@@ -12,7 +12,7 @@ var jwtKey = builder.Configuration["Jwt:key"];
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<DBContext>(options =>
-    options.UseSqlite("Data Source=users.db")
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"))
 );
 
 builder.Services.AddScoped<AuthService>();
