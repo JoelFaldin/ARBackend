@@ -1,4 +1,4 @@
-FROM mcr.Microsoft.com/dotne/sdk:9.0 AS BUILD
+FROM mcr.Microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 COPY . ./

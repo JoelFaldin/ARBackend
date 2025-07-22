@@ -12,7 +12,7 @@ var jwtKey = builder.Configuration["Jwt:key"];
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<DBContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"))
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
 builder.Services.AddScoped<AuthService>();
@@ -34,8 +34,14 @@ builder.Services.AddOpenApi(); // Swagger ?
 
 var app = builder.Build();
 
-// ---------- Middleware ----------
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DBContext>();
+    db.Database.Migrate();
+}
+
+    // ---------- Middleware ----------
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
