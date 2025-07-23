@@ -34,7 +34,11 @@ public class AuthService
   {
     var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == dto.Username);
 
-    if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+    if (user == null)
+    {
+      throw new AppException("Usuario no encontrado.", 400);
+    }
+    else if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
     {
       throw new AppException("Credenciales incorrectas.", 400);
     }
