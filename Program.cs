@@ -16,6 +16,7 @@ builder.Services.AddDbContext<DBContext>(options =>
 );
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<TimeService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
